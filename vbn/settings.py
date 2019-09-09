@@ -25,7 +25,7 @@ SECRET_KEY = 'lch4(!+cp&ee39_p9%30+p9zsizct07))gaw^=i1h#s(e2mj&v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://video-blogs-django.herokuapp.com/']
 
 
 # Application definition
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -138,10 +139,19 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+STATIC_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
 CRISPY_TEMPLATE_PARK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'blogs-dashboard'
 LOGIN_URL = 'login'
+
+
+import dj_database_url 
+prod_db  =  dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(prod_db)
+
+
 
 # REST_FRAMEWORK = {
 #     # Use Django's standard `django.contrib.auth` permissions,
