@@ -1,1 +1,1 @@
-web: gunicorn vbn.wsgi --log-file -.wsgi --log-file -
+web: gunicorn vbn.wsgi --log-file -
